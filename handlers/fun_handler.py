@@ -693,7 +693,27 @@ class FunHandler:
                 f"{sender_mention} шлёпнул {target_mention} по попе!",
                 f"{sender_mention} ударил {target_mention} тортом в лицо!",
                 f"{sender_mention} запустил тапком в {target_mention}!",
-                f"{sender_mention} дал подзатыльник {target_mention} свёрнутой газетой!"
+                f"{sender_mention} дал подзатыльник {target_mention} свёрнутой газетой!",
+                f"{sender_mention} ударил {target_mention} по голове!",
+                f"{sender_mention} ударил {target_mention} по ноге!",
+                f"{sender_mention} швырнул в {target_mention} резиновую курицу!",
+                f"{sender_mention} кинул в {target_mention} подушку с перьями!",
+                f"{sender_mention} хлопнул {target_mention} по лбу со словами: «Думай!»",
+                f"{sender_mention} попытался шлёпнуть {target_mention}, но промахнулся и упал.",
+                f"{sender_mention} со всей силы дал щелбан {target_mention}!",
+                f"{sender_mention} легонько толкнул {target_mention}, а тот(а) чуть не упал(а)!",
+                f"{sender_mention} дал леща {target_mention}!",
+                f"{sender_mention} покрутил у виска, глядя на {target_mention}...",
+                f"{sender_mention} ударил {target_mention} банкой огурцов!",
+                f"{sender_mention} пощёчил {target_mention} розой. Романтично, но больно.",
+                f"{sender_mention} сделал захват как в рестлинге и отправил {target_mention} в нокаут!",
+                f"{sender_mention} резко хлопнул {target_mention} газетой по носу: «Фу!»",
+                f"{sender_mention} щёлкнул {target_mention} по уху — обидно, но воспитательно.",
+                f"{sender_mention} набросил на {target_mention} паутину как Человек-Паук и шлёпнул сверху!",
+                f"{sender_mention} позвал {target_mention} по имени... и просто вмазал без слов.",
+                f"{sender_mention} метнул в {target_mention} тапок, как шиноби сюрикен!",
+                f"{sender_mention} атаковал {target_mention} с ноги. Почти как в Mortal Kombat!",
+                f"{sender_mention} смачно плюхнул по лбу {target_mention} словарём Ожегова!",
             ]
             
             await event.edit(random.choice(actions), parse_mode='Markdown')
@@ -733,7 +753,24 @@ class FunHandler:
                 f"{sender_mention} чмокнул {target_mention} в носик!",
                 f"{sender_mention} отправил воздушный поцелуй {target_mention}!",
                 f"{sender_mention} поцеловал {target_mention} в макушку!",
-                f"{sender_mention} нежно прижался губами к щеке {target_mention}!"
+                f"{sender_mention} нежно прижался губами к щеке {target_mention}!",
+                f"{sender_mention} тихо прошептал и подарил нежный поцелуй {target_mention}!",
+                f"{sender_mention} сладко поцеловал {target_mention} в губы!",
+                f"{sender_mention} послал страстный поцелуй прямо в сердце {target_mention}!",
+                f"{sender_mention} прокрался сзади и чмокнул {target_mention} в шею!",
+                f"{sender_mention} заигрывающе послал поцелуй {target_mention} с улыбкой!",
+                f"{sender_mention} подарил легкий поцелуй в носик с игривым взглядом!",
+                f"{sender_mention} с нежностью коснулся губами лба {target_mention}!",
+                f"{sender_mention} поцеловал {target_mention} так, что вокруг запахло цветами!",
+                f"{sender_mention} прошептал «люблю» и нежно поцеловал {target_mention}!",
+                f"{sender_mention} обнял и поцеловал {target_mention} с трепетом в сердце!",
+                f"{sender_mention} шепнул на ушко и подарил таинственный поцелуй {target_mention}!",
+                f"{sender_mention} мягко поцеловал {target_mention} в запястье, словно тайна.",
+                f"{sender_mention} послал огненный поцелуй {target_mention}, оставляя искры!",
+                f"{sender_mention} погладил щёку и поцеловал {target_mention} в знак нежности.",
+                f"{sender_mention} нежно чмокнул {target_mention}, заставив сердце биться чаще.",
+                f"{sender_mention} подарил поцелуй с улыбкой, от которой расцвел {target_mention}.",
+                f"{sender_mention} поцеловал {target_mention} в руку, как истинный джентльмен!",
             ]
             
             await event.edit(random.choice(actions), parse_mode='Markdown')
@@ -773,7 +810,18 @@ class FunHandler:
                 f"{sender_mention} нежно прижал к себе {target_mention}!",
                 f"{sender_mention} обнял {target_mention} и погладил по голове!",
                 f"{sender_mention} устроил медвежьи объятия {target_mention}!",
-                f"{sender_mention} приобнял {target_mention} за плечи!"
+                f"{sender_mention} приобнял {target_mention} за плечи!",
+                f"{sender_mention} обнял {target_mention} так тепло, что все заботы улетели!",
+                f"{sender_mention} подарил крепкие объятия с ощущением домашнего уюта!",
+                f"{sender_mention} обнял {target_mention}, словно оберегая от всего мира!",
+                f"{sender_mention} прижал {target_mention} к себе и тихо шепнул: «Я рядом».",
+                f"{sender_mention} обнял {target_mention} и рассеял все тревоги!",
+                f"{sender_mention} подарил объятия, полные тепла и силы!",
+                f"{sender_mention} обнял {target_mention} крепко-крепко, будто не отпустит никогда!",
+                f"{sender_mention} обнял {target_mention} с такой нежностью, что мир стал добрее!",
+                f"{sender_mention} обнял {target_mention} и согрел теплом своей души!",
+                f"{sender_mention} крепко прижал {target_mention}, даря спокойствие и любовь!",
+                f"{sender_mention} обнял {target_mention}, напоминая, что всё будет хорошо!",
             ]
             
             await event.edit(random.choice(actions), parse_mode='Markdown')
