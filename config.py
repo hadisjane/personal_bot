@@ -34,6 +34,7 @@ class Config:
         self.QUOTES_FILE: str = os.path.join(self.ASSETS_DIR, 'quotes.json')
         self.JOKES_FILE: str = os.path.join(self.ASSETS_DIR, 'jokes.json')
         self.ASCII_ART_FILE: str = os.path.join(self.ASSETS_DIR, 'ascii_art.json')
+        self.INTERACTIONS_FILE: str = os.path.join(self.ASSETS_DIR, 'interactions.json')
         
         # Настройки по умолчанию
         self.DEFAULT_WAKE_MESSAGES: int = 10  # Количество сообщений будильника

@@ -19,6 +19,7 @@ from handlers.wake_handler import WakeHandler
 from handlers.mention_handler import MentionHandler
 from handlers.fun_handler import FunHandler
 from handlers.system_handler import SystemHandler
+from handlers.interactions import InteractionsHandler
 from utils.json_storage import JsonStorage
 from utils.time_parser import TimeParser
 
@@ -137,6 +138,37 @@ class PersonalBot:
             await self.fun_handler.handle_add_joke(event)
             
         # Interaction commands
+        @self.client.on(events.NewMessage(pattern=r'^/insult(?:\s+(@?\S+))?$', outgoing=True))
+        async def insult_command(event):
+            # Get the target from the message
+            target = event.pattern_match.group(1)
+            await self.interactions_handler.send_interaction(event, "insults", target)
+            
+        @self.client.on(events.NewMessage(pattern=r'^/roast(?:\s+(@?\S+))?$', outgoing=True))
+        async def roast_command(event):
+            # Get the target from the message
+            target = event.pattern_match.group(1)
+            await self.interactions_handler.send_interaction(event, "roasts", target)
+            
+        @self.client.on(events.NewMessage(pattern=r'^/compliment(?:\s+(@?\S+))?$', outgoing=True))
+        async def compliment_command(event):
+            # Get the target from the message
+            target = event.pattern_match.group(1)
+            await self.interactions_handler.send_interaction(event, "compliments", target)
+            
+        @self.client.on(events.NewMessage(pattern=r'^/ship(?:\s+(@?\S+))?(?:\s+(@?\S+))?$', outgoing=True))
+        async def ship_command(event):
+            # Get both targets from the message
+            target1 = event.pattern_match.group(1)
+            target2 = event.pattern_match.group(2)
+            
+            # If no targets provided, show usage
+            if not target1 or not target2:
+                await event.edit("⚠️ Неправильное использование команды.\nИспользование: /ship @user1 @user2")
+                return
+                
+            await self.interactions_handler.send_interaction(event, "ship", target1, target2)
+            
         @self.client.on(events.NewMessage(pattern=r'^/slap(?:\s+(@?\S+))?$', outgoing=True))
         async def slap_command(event):
             await self.fun_handler.handle_slap(event)
@@ -223,6 +255,7 @@ class PersonalBot:
         self.mention_handler = MentionHandler(self)
         self.fun_handler = FunHandler(self)
         self.system_handler = SystemHandler(self, self.sender_client)
+        self.interactions_handler = InteractionsHandler(self)  # Initialize InteractionsHandler
         logger.info("Обработчики инициализированы.")
 
         # Регистрация обработчиков
