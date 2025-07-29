@@ -649,3 +649,41 @@ class FunHandler:
                 json.dump({'jokes': self.jokes}, f, ensure_ascii=False, indent=2)
         except Exception as e:
             logger.error(f"Ошибка сохранения шуток: {e}")
+    
+    async def handle_add_quote(self, event):
+        """Обработка команды /addquote"""
+        try:
+            self.bot.storage.increment_command_usage('add_quote')
+            
+            # Получаем текст цитаты из сообщения
+            quote = event.pattern_match.group(1)
+            if not quote or not quote.strip():
+                await event.edit(f"{config.ERROR_EMOJI} Укажите текст цитаты после команды /addquote")
+                return
+                
+            # Сохраняем цитату
+            await self.save_custom_content('quote', quote.strip())
+            await event.edit(f"{config.SUCCESS_EMOJI} Цитата успешно добавлена!")
+            
+        except Exception as e:
+            logger.error(f"Ошибка при добавлении цитаты: {e}")
+            await event.edit(f"{config.ERROR_EMOJI} Не удалось добавить цитату")
+    
+    async def handle_add_joke(self, event):
+        """Обработка команды /addjoke"""
+        try:
+            self.bot.storage.increment_command_usage('add_joke')
+            
+            # Получаем текст шутки из сообщения
+            joke = event.pattern_match.group(1)
+            if not joke or not joke.strip():
+                await event.edit(f"{config.ERROR_EMOJI} Укажите текст шутки после команды /addjoke")
+                return
+                
+            # Сохраняем шутку
+            await self.save_custom_content('joke', joke.strip())
+            await event.edit(f"{config.SUCCESS_EMOJI} Шутка успешно добавлена!")
+            
+        except Exception as e:
+            logger.error(f"Ошибка при добавлении шутки: {e}")
+            await event.edit(f"{config.ERROR_EMOJI} Не удалось добавить шутку")

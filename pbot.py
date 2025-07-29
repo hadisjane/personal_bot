@@ -126,6 +126,15 @@ class PersonalBot:
         @self.client.on(events.NewMessage(pattern=r'^/morning(?:\s+(.*))?$', outgoing=True))
         async def morning_command(event):
             await self.fun_handler.handle_morning(event)
+            
+        # Add quote and joke commands
+        @self.client.on(events.NewMessage(pattern=r'^/addquote\s+(.+)$', outgoing=True))
+        async def add_quote_command(event):
+            await self.fun_handler.handle_add_quote(event)
+            
+        @self.client.on(events.NewMessage(pattern=r'^/addjoke\s+(.+)$', outgoing=True))
+        async def add_joke_command(event):
+            await self.fun_handler.handle_add_joke(event)
 
         # Утилиты
         @self.client.on(events.NewMessage(pattern=r'^/hash\s+(.+)', outgoing=True))
