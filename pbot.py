@@ -123,6 +123,10 @@ class PersonalBot:
         async def meme_command(event):
             await self.fun_handler.handle_meme(event)
 
+        @self.client.on(events.NewMessage(pattern=r'^/morning(?:\s+(.*))?$', outgoing=True))
+        async def morning_command(event):
+            await self.fun_handler.handle_morning(event)
+
         # Утилиты
         @self.client.on(events.NewMessage(pattern=r'^/hash\s+(.+)', outgoing=True))
         async def hash_command(event):
