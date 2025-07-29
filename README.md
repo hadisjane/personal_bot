@@ -2,7 +2,7 @@
   <h1>Personal Telegram Bot</h1>
   <h3>Telegram бот с таймерами, будильниками, упоминаниями и множеством других полезных функций.</h3>
 
-  [![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)](https://github.com/hadisjane/nova/releases/tag/v1.1.0)
+  [![Version](https://img.shields.io/badge/version-1.2.0-blue.svg)](https://github.com/hadisjane/nova/releases/tag/v1.2.0)
   [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/hadisjane/nova/blob/main/LICENSE)
 
   [![GitHub](https://img.shields.io/badge/GitHub-00ADD8?style=flat&logo=github&logoColor=white)](https://github.com/hadisjane/nova)
@@ -33,7 +33,9 @@
 
 ### 🎭 Развлечения
 - `/quote` - случайная цитата
+- `/addquote "цитата"` - добавить новую цитату
 - `/joke` - случайная шутка  
+- `/addjoke "шутка"` - добавить новую шутку
 - `/ascii "HELLO"` - ASCII арт
 - `/rps камень` - камень-ножницы-бумага
 - `/coin` - подбросить монетку
