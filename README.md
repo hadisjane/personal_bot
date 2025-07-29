@@ -2,7 +2,7 @@
   <h1>Personal Telegram Bot</h1>
   <h3>Telegram бот с таймерами, будильниками, упоминаниями и множеством других полезных функций.</h3>
 
-  [![Version](https://img.shields.io/badge/version-1.5.0-blue.svg)](https://github.com/hadisjane/nova/releases/tag/v1.5.0)
+  [![Version](https://img.shields.io/badge/version-1.6.0-blue.svg)](https://github.com/hadisjane/nova/releases/tag/v1.6.0)
   [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/hadisjane/nova/blob/main/LICENSE)
 
   [![GitHub](https://img.shields.io/badge/GitHub-00ADD8?style=flat&logo=github&logoColor=white)](https://github.com/hadisjane/nova)
@@ -39,6 +39,10 @@
 - `/slap [@username | текст]` - ударить кого-то
 - `/kiss [@username | текст]` - поцеловать кого-то
 - `/hug [@username | текст]` - обнять кого-то
+- `/insult [@username | текст]` - оскорбить кого-то
+- `/roast [@username | текст]` - 'прожарить' кого-то
+- `/ship [@username1 | текст] [@username2 | текст]` - проверить совместимость
+- `/compliment [@username | текст]` - похвалить кого-то
 - `/ascii "HELLO"` - ASCII арт
 - `/rps камень` - камень-ножницы-бумага
 - `/coin` - подбросить монетку
@@ -133,6 +137,7 @@ personal_bot/
 │   ├── timer_handler.py  # Таймеры
 │   ├── wake_handler.py   # Будильники
 │   ├── json_storage.py   # Хранилище JSON
+│   ├── interactions.py   # Интеракции
 │   ├── timer_parser.py   # Парсинг таймеров
 │   ├── mention_handler.py # Упоминания
 │   ├── fun_handler.py    # Развлечения
@@ -144,6 +149,7 @@ personal_bot/
 └── assets/               # Ресурсы
     ├── quotes.json       # Цитаты
     ├── jokes.json        # Шутки
+    ├── interactions.json # Интеракции
     └── ascii_art.json    # ASCII арт
 ```
 
@@ -206,6 +212,14 @@ personal_bot/
 /cancel timer
 /stats
 ```
+
+**Интеракции:**
+```
+/insult [@username | текст]
+/roast [@username | текст]
+/ship [@username1 | текст] [@username2 | текст]
+/compliment [@username | текст]
+``` 
 
 ## ⚠️ Ограничения безопасности
 
