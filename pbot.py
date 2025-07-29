@@ -135,6 +135,19 @@ class PersonalBot:
         @self.client.on(events.NewMessage(pattern=r'^/addjoke\s+(.+)$', outgoing=True))
         async def add_joke_command(event):
             await self.fun_handler.handle_add_joke(event)
+            
+        # Interaction commands
+        @self.client.on(events.NewMessage(pattern=r'^/slap(?:\s+(@?\S+))?$', outgoing=True))
+        async def slap_command(event):
+            await self.fun_handler.handle_slap(event)
+            
+        @self.client.on(events.NewMessage(pattern=r'^/kiss(?:\s+(@?\S+))?$', outgoing=True))
+        async def kiss_command(event):
+            await self.fun_handler.handle_kiss(event)
+            
+        @self.client.on(events.NewMessage(pattern=r'^/hug(?:\s+(@?\S+))?$', outgoing=True))
+        async def hug_command(event):
+            await self.fun_handler.handle_hug(event)
 
         # Утилиты
         @self.client.on(events.NewMessage(pattern=r'^/hash\s+(.+)', outgoing=True))

@@ -617,6 +617,171 @@ class FunHandler:
             logger.error(f"Ошибка в handle_meme: {e}")
             await event.edit(f"{config.ERROR_EMOJI} Ошибка при получении мема!")
     
+    async def _get_user_mention(self, event, user_entity=None, username=None, first_name=None, target_text=None):
+        """
+        Возвращает упоминание пользователя с именем и кликабельным юзернеймом
+        :param event: Событие сообщения (для получения клиента)
+        :param user_entity: Объект пользователя Telethon (если есть)
+        :param username: Юзернейм пользователя (без @)
+        :param first_name: Имя пользователя
+        :param target_text: Текст цели (может быть @username или просто текст)
+        """
+        try:
+            # Если передан объект пользователя, используем его
+            if user_entity:
+                display_name = getattr(user_entity, 'first_name', None) or \
+                             getattr(user_entity, 'username', None) or \
+                             f"user{user_entity.id}" if hasattr(user_entity, 'id') else "кто-то"
+                return f"[{display_name}](tg://user?id={user_entity.id})"
+                
+            # Если передан текст цели
+            if target_text is not None:
+                # Если это юзернейм (начинается с @), пробуем найти пользователя
+                if target_text.startswith('@'):
+                    try:
+                        user = await event.client.get_entity(target_text)
+                        if user:
+                            display_name = getattr(user, 'first_name', None) or target_text[1:]
+                            return f"[{display_name}](tg://user?id={user.id})"
+                    except Exception as e:
+                        logger.debug(f"Не удалось найти пользователя {target_text}: {e}")
+                    return target_text  # Возвращаем как есть, если не нашли пользователя
+                # Если это просто текст, возвращаем как есть
+                return target_text
+                
+            # Если передан только username, возвращаем его с @
+            if username:
+                return f"@{username}"
+                
+            # Если передано только имя, возвращаем его
+            if first_name:
+                return first_name
+                
+        except Exception as e:
+            logger.error(f"Ошибка в _get_user_mention: {e}")
+            
+        return "кто-то"
+
+    async def handle_slap(self, event):
+        """Обработка команды /slap"""
+        try:
+            self.bot.storage.increment_command_usage('slap')
+            
+            # Получаем цель из сообщения
+            target = event.pattern_match.group(1)
+            if not target or not target.strip():
+                await event.edit(f"{config.ERROR_EMOJI} Укажите цель! Используйте: /slap @username")
+                return
+                
+            target = target.strip()
+            
+            # Получаем информацию об отправителе
+            sender = await event.get_sender()
+            sender_mention = await self._get_user_mention(
+                event=event,
+                user_entity=sender,
+                username=getattr(sender, 'username', None),
+                first_name=getattr(sender, 'first_name', None)
+            )
+            
+            # Формируем упоминание цели
+            target_mention = await self._get_user_mention(event=event, target_text=target)
+            
+            # Список возможных действий
+            actions = [
+                f"{sender_mention} дал подзатыльник {target_mention}!",
+                f"{sender_mention} шлёпнул {target_mention} по попе!",
+                f"{sender_mention} ударил {target_mention} тортом в лицо!",
+                f"{sender_mention} запустил тапком в {target_mention}!",
+                f"{sender_mention} дал подзатыльник {target_mention} свёрнутой газетой!"
+            ]
+            
+            await event.edit(random.choice(actions), parse_mode='Markdown')
+            
+        except Exception as e:
+            logger.error(f"Ошибка в handle_slap: {e}")
+            await event.edit(f"{config.ERROR_EMOJI} Что-то пошло не так!")
+    
+    async def handle_kiss(self, event):
+        """Обработка команды /kiss"""
+        try:
+            self.bot.storage.increment_command_usage('kiss')
+            
+            # Получаем цель из сообщения
+            target = event.pattern_match.group(1)
+            if not target or not target.strip():
+                await event.edit(f"{config.ERROR_EMOJI} Укажите, кого поцеловать! Использование: /kiss @username")
+                return
+                
+            target = target.strip()
+            
+            # Получаем информацию об отправителе
+            sender = await event.get_sender()
+            sender_mention = await self._get_user_mention(
+                event=event,
+                user_entity=sender,
+                username=getattr(sender, 'username', None),
+                first_name=getattr(sender, 'first_name', None)
+            )
+            
+            # Формируем упоминание цели
+            target_mention = await self._get_user_mention(event=event, target_text=target)
+            
+            # Список возможных действий
+            actions = [
+                f"{sender_mention} нежно поцеловал {target_mention} в щёчку!",
+                f"{sender_mention} чмокнул {target_mention} в носик!",
+                f"{sender_mention} отправил воздушный поцелуй {target_mention}!",
+                f"{sender_mention} поцеловал {target_mention} в макушку!",
+                f"{sender_mention} нежно прижался губами к щеке {target_mention}!"
+            ]
+            
+            await event.edit(random.choice(actions), parse_mode='Markdown')
+            
+        except Exception as e:
+            logger.error(f"Ошибка в handle_kiss: {e}")
+            await event.edit(f"{config.ERROR_EMOJI} Что-то пошло не так!")
+    
+    async def handle_hug(self, event):
+        """Обработка команды /hug"""
+        try:
+            self.bot.storage.increment_command_usage('hug')
+            
+            # Получаем цель из сообщения
+            target = event.pattern_match.group(1)
+            if not target or not target.strip():
+                await event.edit(f"{config.ERROR_EMOJI} Укажите, кого обнять! Использование: /hug @username")
+                return
+                
+            target = target.strip()
+            
+            # Получаем информацию об отправителе
+            sender = await event.get_sender()
+            sender_mention = await self._get_user_mention(
+                event=event,
+                user_entity=sender,
+                username=getattr(sender, 'username', None),
+                first_name=getattr(sender, 'first_name', None)
+            )
+            
+            # Формируем упоминание цели
+            target_mention = await self._get_user_mention(event=event, target_text=target)
+            
+            # Список возможных действий
+            actions = [
+                f"{sender_mention} крепко обнял {target_mention}!",
+                f"{sender_mention} нежно прижал к себе {target_mention}!",
+                f"{sender_mention} обнял {target_mention} и погладил по голове!",
+                f"{sender_mention} устроил медвежьи объятия {target_mention}!",
+                f"{sender_mention} приобнял {target_mention} за плечи!"
+            ]
+            
+            await event.edit(random.choice(actions), parse_mode='Markdown')
+            
+        except Exception as e:
+            logger.error(f"Ошибка в handle_hug: {e}")
+            await event.edit(f"{config.ERROR_EMOJI} Что-то пошло не так!")
+    
     async def save_custom_content(self, content_type: str, content: str):
         """Сохраняет пользовательский контент"""
         try:
