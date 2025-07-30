@@ -67,7 +67,7 @@ class InteractionsHandler:
                 # Если это просто текст, возвращаем как есть
                 return target_text
                 
-            # Если передан только username, возвращаем его с @
+            # Если передано только username, возвращаем его с @
             if username:
                 return f"@{username}"
                 
@@ -95,10 +95,7 @@ class InteractionsHandler:
         :param target: Цель (юзернейм или текст)
         :return: Строка с результатом
         """
-        # Генерируем случайный процент
         percent = random.randint(1, 100)
-        
-        # Выбираем категорию на основе процента
         if percent >= 90:
             category = "moreThan90"
         elif percent >= 70:
@@ -109,21 +106,13 @@ class InteractionsHandler:
             category = "between30And49"
         else:
             category = "lessThan30"
-        
-        # Получаем список фраз для выбранной категории
         phrases = self.interactions.get("gayrate", {}).get(category, [])
-        
-        # Если фраз нет, используем стандартное сообщение
         if not phrases:
-            return f"🌈 Гей-рейтинг для {target}:\n💖 Вероятность: {percent}%\n\n{target} — интересный случай!"
-        
-        # Выбираем случайную фразу и подставляем цель
-        phrase = random.choice(phrases).format(target=target, percent=percent)
-        
-        # Добавляем заголовок с процентом, если его еще нет в фразе
-        if "%" not in phrase:
-            return f"🌈 Гей-рейтинг для {target}:\n💖 Вероятность: {percent}%\n\n{phrase}"
-        return phrase
+            phrase = f"{target} — интересный случай!"
+        else:
+            phrase = random.choice(phrases).format(target=target, percent=percent)
+        # ВСЕГДА возвращаем с заголовком и процентом
+        return f"🌈 Гей-рейтинг для {target}:\n💖 Вероятность: {percent}%\n\n{phrase}"
 
     async def _get_commit_message(self, commit_type: str = None, custom_message: str = None) -> str:
         """
@@ -406,23 +395,33 @@ class InteractionsHandler:
                 message = await self._get_define_message(event, target)
                 await event.edit(message)
                 return
-                
+
+            # Обрабатываем команду gayrate
+            elif interaction_type == 'gayrate':
                 # Получаем имя цели
                 target_name = await self._get_target_name(event, target)
-                
                 # Получаем сообщение с рейтингом
                 message = await self._get_gayrate_message(target_name)
-            else:
-                # Получаем имя цели
-                target_name = await self._get_target_name(event, target)
-                
-                # Выбираем случайное сообщение из соответствующего списка
-                messages = self.interactions.get(interaction_type, [])
-                if not messages:
-                    await event.edit("❌ Не найдено сообщений для этой команды.")
-                    return
-                
-                message = random.choice(messages).format(target=target_name)
+                await event.edit(message)
+                return
+            
+            # Получаем имя цели
+            target_name = await self._get_target_name(event, target)
+            
+            # Выбираем случайное сообщение из соответствующего списка
+            messages = self.interactions.get(interaction_type, [])
+            # Если messages — словарь, собираем все значения в один список
+            if isinstance(messages, dict):
+                all_messages = []
+                for v in messages.values():
+                    if isinstance(v, list):
+                        all_messages.extend(v)
+                messages = all_messages
+            if not messages:
+                await event.edit("❌ Не найдено сообщений для этой команды.")
+                return
+
+            message = random.choice(messages).format(target=target_name)
             
             # Отправляем сообщение, редактируя исходное
             await event.edit(message)
