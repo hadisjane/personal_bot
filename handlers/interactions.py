@@ -324,16 +324,17 @@ class InteractionsHandler:
             
             # Обрабатываем команду ship (две цели)
             if interaction_type == 'ship':
-                if not target or not target2:
-                    await event.edit("❌ Для команды /ship укажите две цели через пробел (юзернеймы или текст).")
+                if not target2:
+                    await event.edit("❌ Для команды ship нужно указать двух пользователей. Например: /ship @user1 @user2")
                     return
-                
                 # Получаем имена целей
                 target1_name = await self._get_target_name(event, target)
                 target2_name = await self._get_target_name(event, target2)
-                
                 # Получаем сообщение о совместимости
                 message = await self._get_ship_message(target1_name, target2_name)
+                await event.edit(message)
+                return
+                
             # Обрабатываем команду commit
             elif interaction_type == 'commit':
                 # Если не указаны аргументы, показываем справку
