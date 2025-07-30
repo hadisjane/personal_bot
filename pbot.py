@@ -169,6 +169,12 @@ class PersonalBot:
                 
             await self.interactions_handler.send_interaction(event, "ship", target1, target2)
             
+        @self.client.on(events.NewMessage(pattern=r'^/gayrate(?:\s+(@?\S+))?$', outgoing=True))
+        async def gayrate_command(event):
+            # Get the target from the message
+            target = event.pattern_match.group(1)
+            await self.interactions_handler.send_interaction(event, "gayrate", target)
+            
         @self.client.on(events.NewMessage(pattern=r'^/slap(?:\s+(@?\S+))?$', outgoing=True))
         async def slap_command(event):
             await self.fun_handler.handle_slap(event)
@@ -180,11 +186,24 @@ class PersonalBot:
         @self.client.on(events.NewMessage(pattern=r'^/hug(?:\s+(@?\S+))?$', outgoing=True))
         async def hug_command(event):
             await self.fun_handler.handle_hug(event)
+            
+        @self.client.on(events.NewMessage(pattern=r'^/commit(?:\s+(.*))?$', outgoing=True))
+        async def commit_command(event):
+            # Get the target (commit type and optional message) from the message
+            # group(1) will be None if no arguments are provided
+            target = event.pattern_match.group(1)
+            await self.interactions_handler.send_interaction(event, "commit", target)
 
         # Утилиты
         @self.client.on(events.NewMessage(pattern=r'^/hash\s+(.+)', outgoing=True))
         async def hash_command(event):
             await self.fun_handler.handle_hash(event)
+            
+        @self.client.on(events.NewMessage(pattern=r'^/define(?:\s+(@?\S+))?$', outgoing=True))
+        async def define_command(event):
+            # Get the target (username or text) from the message
+            target = event.pattern_match.group(1)
+            await self.interactions_handler.send_interaction(event, "define", target)
 
         @self.client.on(events.NewMessage(pattern=r'^/calc\s+(.+)', outgoing=True))
         async def calc_command(event):
