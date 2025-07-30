@@ -133,10 +133,11 @@ class TimerHandler:
             
         except asyncio.CancelledError:
             logger.info(f"Таймер {timer_id} был отменен")
-            await event.edit(f"{config.WARNING_EMOJI} Таймер отменен")
-            if timer_id in self.active_timers:
-                del self.active_timers[timer_id]
-            self.bot.storage.remove_timer(timer_id)
+            try:
+                await event.edit(f"{config.WARNING_EMOJI} Таймер отменен")
+            except (ConnectionError, asyncio.CancelledError):
+                # Не логируем отмену при выключении бота
+                pass
         except Exception as e:
             logger.error(f"Ошибка в таймере {timer_id}: {e}")
             await event.edit(f"{config.ERROR_EMOJI} Ошибка в таймере!")

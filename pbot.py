@@ -293,6 +293,8 @@ class PersonalBot:
     async def stop(self):
         """Остановка бота"""
         logger.info("Остановка бота...")
+        if hasattr(self, 'timer_handler') and self.timer_handler.active_timers:
+            print("\nБот был отключен, но все таймеры сохранены и будут восстановлены при следующем запуске.")
         await self.client.disconnect()
 
 async def main():
